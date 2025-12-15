@@ -28,7 +28,7 @@ def predict(data: dict):
     weather = data["weather"]
     traffic = data["traffic"]
     time_of_day = data["time_of_day"]
-    vehicle_type = data["vehicle_type"]
+    #vehicle_type = data["vehicle_type"]
 
    
     raw_input = np.array([
@@ -53,3 +53,4 @@ def predict(data: dict):
         "predicted_time": float(prediction),
         "status": "success"
     }
+
