@@ -66,3 +66,4 @@ if st.button("Predict Delivery Time"):
             st.error("Could not connect to FastAPI backend. Make sure it's running.")
             st.exception(e)
 
+
