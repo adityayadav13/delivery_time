@@ -43,7 +43,7 @@ if st.button("Predict Delivery Time"):
         response = requests.post(BACKEND_URL, json=payload)
         result = response.json()
 
-        st.write("Backend Response:", result)
+        
 
         if "predicted_time" in result:
             st.success(f"Estimated Delivery Time: {result['predicted_time']:.2f} minutes")
@@ -54,3 +54,4 @@ if st.button("Predict Delivery Time"):
     except Exception as e:
         st.error("❌ Could not connect to backend. Check the URL or backend status.")
         st.exception(e)
+
