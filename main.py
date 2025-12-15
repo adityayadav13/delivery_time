@@ -5,7 +5,6 @@ import numpy as np
 
 app = FastAPI()
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,12 +14,12 @@ app.add_middleware(
 )
 
 
-model = joblib.load("delivery_time_model.pkl")         
-preprocessor = joblib.load("encoder.pkl") 
-
+model = joblib.load("delivery_time_model.pkl")
+preprocessor = joblib.load("encoder.pkl")  
 
 @app.post("/predict")
 def predict(data: dict):
+
 
     distance_km = data["distance_km"]
     preparation_time_min = data["preparation_time_min"]
@@ -28,29 +27,26 @@ def predict(data: dict):
     weather = data["weather"]
     traffic = data["traffic"]
     time_of_day = data["time_of_day"]
-    #vehicle_type = data["vehicle_type"]
 
-   
     raw_input = np.array([
         distance_km,
         weather,
         traffic,
         time_of_day,
-        #vehicle_type,
         preparation_time_min,
         courier_experience_yrs
     ]).reshape(1, -1)
 
+   
     try:
         processed_input = preprocessor.transform(raw_input)
-    except:
-        processed_input = raw_input  
+    except Exception as e:
+        print("Preprocessing skipped:", e)
+        processed_input = raw_input
 
- 
+
     prediction = model.predict(processed_input)[0]
 
     return {
-        "predicted_time": float(prediction),
-        "status": "success"
+        "predicted_time": float(prediction)
     }
-
