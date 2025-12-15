@@ -57,7 +57,7 @@ if st.button("Predict Delivery Time"):
         }
 
         try:
-            response = requests.post("http://localhost:8000/predict", json=payload)
+            response = requests.post("https://delivery-time-8qxy.onrender.com", json=payload)
             result = response.json()
 
             st.success(f"Estimated Delivery Time: {result['predicted_time']:.2f} minutes")
@@ -65,3 +65,4 @@ if st.button("Predict Delivery Time"):
         except Exception as e:
             st.error("Could not connect to FastAPI backend. Make sure it's running.")
             st.exception(e)
+
